@@ -68,14 +68,13 @@ gameRoutes.delete('/game/:id', auth, (req, res) => {
 // Edit data
 gameRoutes.put('/game/:id', auth, (req, res) => {
   if (!Number.isNaN(Number(req.params.id))) {
-    const id = parseInt(req.params.id, 10);
+    const id = parseInt(req?.params?.id, 10);
 
     const game = fakeDb.games.find(g => g.id === id);
 
-    if (!game) {
-      return res.status(404);
-    }
-    const { title, price, year } = req.body;
+    if (!game) return res.status(404);
+
+    const { title, price, year } = req?.body;
 
     if ({ title, price, year } !== undefined) {
       game.title = title;
@@ -87,5 +86,4 @@ gameRoutes.put('/game/:id', auth, (req, res) => {
   }
   return res.status(400);
 });
-
 export default gameRoutes;

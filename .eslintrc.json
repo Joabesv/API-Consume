@@ -9,12 +9,12 @@
 	"prettier"
     ],
     "parserOptions": {
-        "ecmaVersion": 13,
+        "ecmaVersion": 2020,
         "sourceType": "module"
     },
     "rules": {
 	"no-console": "off",
-    // "eqeqeq":"off",
-    "import/extensions": "off"
+    "import/extensions": "off",
+    "no-unsafe-optional-chaining": "off"
     }
 }
