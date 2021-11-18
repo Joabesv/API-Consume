@@ -1,0 +1,25 @@
+{
+  "name": "jwt_api_consume",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Joabesv <joabevarjao123@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start:api": "nodemon api/src/index.js"
+  },
+  "devDependencies": {
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-prettier": "^4.0.0",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.4.1"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1"
+  }
+}
