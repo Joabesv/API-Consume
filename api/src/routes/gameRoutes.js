@@ -53,49 +53,39 @@ gameRoutes.post('/game', auth, (req, res) => {
 
 // Delete Data
 gameRoutes.delete('/game/:id', auth, (req, res) => {
-  if (Number.isNaN(Number(req.params.id))) {
-    res.status(400);
-  } else {
+  if (!Number.isNaN(Number(req.params.id))) {
     const id = parseInt(req.params.id, 10);
-    const index = fakeDb.games.findIndex(g => g.id == id);
+    const index = fakeDb.games.findIndex(g => g.id === id);
 
-    if (index == -1) {
-      res.status(404);
-    } else {
+    if (index !== -1) {
       fakeDb.games.splice(index, 1);
       res.status(200);
     }
+    return res.status(404);
   }
+  return res.status(400);
 });
 // Edit data
 gameRoutes.put('/game/:id', auth, (req, res) => {
-  if (Number.isNaN(Number(req.params.id))) {
-    res.status(400);
-  } else {
+  if (!Number.isNaN(Number(req.params.id))) {
     const id = parseInt(req.params.id, 10);
 
     const game = fakeDb.games.find(g => g.id === id);
 
-    if (game != undefined) {
-      const { title, price, year } = req.body;
-
-      if (title != undefined) {
-        game.title = title;
-      }
-
-      if (price != undefined) {
-        game.price = price;
-      }
-
-      if (year != undefined) {
-        game.year = year;
-      }
-
-      res.status(200);
-    } else {
-      res.status(404);
+    if (!game) {
+      return res.status(404);
     }
+    const { title, price, year } = req.body;
+
+    if ({ title, price, year } !== undefined) {
+      game.title = title;
+      game.price = price;
+      game.year = year;
+    }
+
+    return res.status(200);
   }
+  return res.status(400);
 });
 
 export default gameRoutes;
