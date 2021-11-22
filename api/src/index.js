@@ -15,7 +15,26 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.get('/games', auth, (req, res) => {
-  res.status(200).json({ games: fakeDb.games });
+  const HATEOAS = [
+    [
+      {
+        href: `http://localhost:${PORT}/game/0`,
+        method: 'DELETE',
+        rel: 'delete_game',
+      },
+      {
+        href: `http://localhost:${PORT}/games`,
+        method: 'GET',
+        rel: 'get_game',
+      },
+      {
+        href: `http://localhost:${PORT}/auth`,
+        method: 'POST',
+        rel: 'login',
+      },
+    ],
+  ];
+  res.status(200).json({ games: fakeDb.games, _links: HATEOAS });
 });
 
 app.use('/', gameRoutes); // GET

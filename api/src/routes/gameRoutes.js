@@ -21,11 +21,36 @@ gameRoutes.get('/game/:id', auth, (req, res) => {
   if (!Number.isNaN(Number(req.params.id))) {
     const id = parseInt(req.params.id, 10);
 
+    const HATEOAS = [
+      [
+        {
+          href: `http://localhost:4444/game/${id}`,
+          method: 'DELETE',
+          rel: 'delete_game',
+        },
+        {
+          href: `http://localhost:4444/game/${id}`,
+          method: 'PUT',
+          rel: 'edit_game',
+        },
+        {
+          href: `http://localhost:4444/game/${id}`,
+          method: 'GET',
+          rel: 'get_game',
+        },
+        {
+          href: `http://localhost:4444/games`,
+          method: 'GET',
+          rel: 'get_all_games',
+        },
+      ],
+    ];
+
     const game = fakeDb.games.find(g => g.id === id);
 
     if (!game) return res.status(404);
 
-    return res.status(200).json(game);
+    return res.status(200).json({ game, _links: HATEOAS });
   }
   return res.status(400);
 });
